@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
-use Tightenco\Ziggy\Ziggy;
+use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -50,11 +50,17 @@ class HandleInertiaRequests extends Middleware
                 'error' => fn () => $request->session()->get('error'),
             ],
             'ziggy' => function () use ($request) {
-                $baseUrl = preg_replace('/^http:/', 'https:', rtrim(config('app.url', $request->getSchemeAndHttpHost()), '/'));
+                $baseUrl = rtrim(config('app.url', $request->getSchemeAndHttpHost()), '/');
+                $location = $request->url();
+
+                if (app()->environment('production')) {
+                    $baseUrl = preg_replace('/^http:/', 'https:', $baseUrl);
+                    $location = preg_replace('/^http:/', 'https:', $location);
+                }
 
                 return [
                     ...(new Ziggy(url: $baseUrl))->toArray(),
-                    'location' => preg_replace('/^http:/', 'https:', $request->url()),
+                    'location' => $location,
                 ];
             },
         ];
