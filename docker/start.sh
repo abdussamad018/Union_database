@@ -5,6 +5,14 @@ php artisan config:clear
 
 if [ -n "$RAILWAY_PUBLIC_DOMAIN" ]; then
   export APP_URL="https://${RAILWAY_PUBLIC_DOMAIN}"
+elif [ -n "$APP_URL" ]; then
+  case "$APP_URL" in
+    http://*) APP_URL="https://${APP_URL#http://}" ;;
+  esac
+  export APP_URL
+fi
+
+if [ -n "$APP_URL" ]; then
   export SESSION_SECURE_COOKIE="true"
   echo "APP_URL set to $APP_URL"
 fi

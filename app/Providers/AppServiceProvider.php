@@ -20,7 +20,14 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        if (! $this->app->runningInConsole()) {
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+
+            $appUrl = config('app.url');
+            if ($appUrl) {
+                URL::forceRootUrl(preg_replace('/^http:/', 'https:', rtrim($appUrl, '/')));
+            }
+        } elseif (! $this->app->runningInConsole()) {
             $request = request();
 
             if ($request->header('X-Forwarded-Proto') === 'https' || $request->isSecure()) {

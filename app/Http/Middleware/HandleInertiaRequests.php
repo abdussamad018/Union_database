@@ -49,10 +49,14 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
             ],
-            'ziggy' => fn () => [
-                ...(new Ziggy)->toArray(),
-                'location' => $request->url(),
-            ],
+            'ziggy' => function () use ($request) {
+                $baseUrl = preg_replace('/^http:/', 'https:', rtrim(config('app.url', $request->getSchemeAndHttpHost()), '/'));
+
+                return [
+                    ...(new Ziggy(url: $baseUrl))->toArray(),
+                    'location' => preg_replace('/^http:/', 'https:', $request->url()),
+                ];
+            },
         ];
     }
 }
