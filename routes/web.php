@@ -14,6 +14,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResidentViewerController;
+use App\Http\Controllers\ViewerDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing');
@@ -27,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware(['role:social_organization,elite,super_admin'])->group(function () {
+        Route::get('/dashboard', [ViewerDashboardController::class, 'index'])->name('viewer.dashboard');
         Route::get('/donations', [DonationViewerController::class, 'index'])->name('donations.index');
         Route::get('/donations/{donation}', [DonationViewerController::class, 'show'])->name('donations.show');
 

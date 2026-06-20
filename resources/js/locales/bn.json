@@ -96,5 +96,13 @@
     "inactive": "নিষ্ক্রিয়",
     "actions": "কার্যক্রম",
     "activate": "সক্রিয় করুন",
-    "deactivate": "নিষ্ক্রিয় করুন"
+    "deactivate": "নিষ্ক্রিয় করুন",
+    "population": "জনসংখ্যা",
+    "population_comparisons": "জনসংখ্যা তুলনা",
+    "donation_summary": "দান সারাংশ",
+    "ward_population": "ওয়ার্ড ভিত্তিক জনসংখ্যা",
+    "house_scope": "বাড়ির জনসংখ্যা",
+    "total_members": "মোট সদস্য",
+    "complete_profiles": "সম্পূর্ণ প্রোফাইল",
+    "incomplete_profiles": "অসম্পূর্ণ প্রোফাইল"
 }

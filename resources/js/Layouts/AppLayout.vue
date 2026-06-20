@@ -29,6 +29,7 @@ const bariLinks = [
 ];
 
 const viewerLinks = [
+    { name: 'dashboard', route: 'viewer.dashboard', label: 'dashboard' },
     { name: 'donations', route: 'donations.index', label: 'donations' },
     { name: 'residents', route: 'residents.viewer.index', label: 'residents' },
 ];

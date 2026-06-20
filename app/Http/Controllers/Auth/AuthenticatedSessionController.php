@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
         $redirect = match ($user->role) {
             UserRole::SuperAdmin => route('admin.dashboard'),
             UserRole::BariRepresentative => route('bari.dashboard'),
-            UserRole::SocialOrganization, UserRole::Elite => route('donations.index'),
+            UserRole::SocialOrganization, UserRole::Elite => route('viewer.dashboard'),
         };
 
         return redirect()->intended($redirect);

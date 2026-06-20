@@ -96,5 +96,13 @@
     "inactive": "Inactive",
     "actions": "Actions",
     "activate": "Activate",
-    "deactivate": "Deactivate"
+    "deactivate": "Deactivate",
+    "population": "Population",
+    "population_comparisons": "Population Comparisons",
+    "donation_summary": "Donation Summary",
+    "ward_population": "Ward Population",
+    "house_scope": "House population",
+    "total_members": "Total Members",
+    "complete_profiles": "Complete Profiles",
+    "incomplete_profiles": "Incomplete Profiles"
 }
