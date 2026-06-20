@@ -104,5 +104,7 @@
     "house_scope": "বাড়ির জনসংখ্যা",
     "total_members": "মোট সদস্য",
     "complete_profiles": "সম্পূর্ণ প্রোফাইল",
-    "incomplete_profiles": "অসম্পূর্ণ প্রোফাইল"
+    "incomplete_profiles": "অসম্পূর্ণ প্রোফাইল",
+    "filter_dashboard": "ড্যাশবোর্ড ফিল্টার",
+    "showing_data_for": "দেখানো হচ্ছে"
 }

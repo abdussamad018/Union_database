@@ -24,18 +24,25 @@ class StatsService
         ];
     }
 
-    public function adminDashboard(): array
+    public function adminDashboard(array $scope = []): array
     {
-        return $this->dashboardData();
+        return $this->dashboardData($scope);
     }
 
-    public function dashboardData(?int $houseId = null): array
+    public function dashboardData(array $scope = []): array
     {
-        $scoped = (bool) $houseId;
-        $query = fn () => $this->baseResidents($houseId);
+        $houseId = $scope['house_id'] ?? null;
+        $villageId = $scope['village_id'] ?? null;
+        $isFiltered = $houseId || $villageId;
+        $query = fn () => $this->baseResidents($scope);
 
         $data = [
-            'scoped_to_house' => $scoped,
+            'scoped_to_house' => (bool) $houseId,
+            'is_filtered' => $isFiltered,
+            'scope' => [
+                'village_id' => $villageId,
+                'house_id' => $houseId,
+            ],
             'total_residents' => $query()->count(),
             'donation_givers' => $query()->where('is_donation_giver_eligible', true)->count(),
             'donation_receivers' => $query()->where('is_donation_receiver_eligible', true)->count(),
@@ -48,11 +55,20 @@ class StatsService
             'private_retired' => $query()->where('employment_sector', 'private_job_holder')->where('employment_status', 'retired')->count(),
             'complete_profiles' => $query()->where('profile_status', 'complete')->count(),
             'incomplete_profiles' => $query()->where('profile_status', '!=', 'complete')->count(),
-            'charts' => $this->comparisonCharts($houseId),
+            'charts' => $this->comparisonCharts($scope),
         ];
 
-        if ($scoped) {
+        if ($houseId) {
+            $house = House::with('village')->find($houseId);
             $data['total_members'] = $data['total_residents'];
+            $data['total_houses'] = 1;
+            $data['scope_label_bn'] = ($house?->village ? "ওয়ার্ড {$house->village->ward_number} — " : '') . ($house?->house_name ?? '');
+            $data['scope_label_en'] = ($house?->village ? "Ward {$house->village->ward_number} — " : '') . ($house?->house_name ?? '');
+        } elseif ($villageId) {
+            $village = Village::find($villageId);
+            $data['total_houses'] = House::where('village_id', $villageId)->count();
+            $data['scope_label_bn'] = $village ? "ওয়ার্ড {$village->ward_number} — {$village->name_bn}" : '';
+            $data['scope_label_en'] = $village ? "Ward {$village->ward_number} — {$village->name_en}" : '';
         } else {
             $data['total_houses'] = House::count();
             $data['donations_given'] = Donation::where('type', 'given')->sum('amount');
@@ -74,9 +90,9 @@ class StatsService
         return $data;
     }
 
-    public function comparisonCharts(?int $houseId = null): array
+    public function comparisonCharts(array $scope = []): array
     {
-        $q = fn () => $this->baseResidents($houseId);
+        $q = fn () => $this->baseResidents($scope);
 
         return [
             [
@@ -188,10 +204,17 @@ class StatsService
         ];
     }
 
-    protected function baseResidents(?int $houseId = null): Builder
+    protected function baseResidents(array $scope = []): Builder
     {
+        $houseId = $scope['house_id'] ?? null;
+        $villageId = $scope['village_id'] ?? null;
+
         return Resident::query()
             ->where('resident_status', 'active')
-            ->when($houseId, fn ($q) => $q->where('house_id', $houseId));
+            ->when($houseId, fn ($q) => $q->where('house_id', $houseId))
+            ->when($villageId && ! $houseId, fn ($q) => $q->whereHas(
+                'house',
+                fn ($h) => $h->where('village_id', $villageId)
+            ));
     }
 }

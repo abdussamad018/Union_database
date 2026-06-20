@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $houseId = auth()->user()->house_id;
 
         return Inertia::render('Dashboard/BariRep', [
-            'stats' => $this->stats->dashboardData($houseId),
+            'stats' => $this->stats->dashboardData(['house_id' => $houseId]),
             'house' => auth()->user()->house?->load('village'),
         ]);
     }

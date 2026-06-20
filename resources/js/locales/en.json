@@ -104,5 +104,7 @@
     "house_scope": "House population",
     "total_members": "Total Members",
     "complete_profiles": "Complete Profiles",
-    "incomplete_profiles": "Incomplete Profiles"
+    "incomplete_profiles": "Incomplete Profiles",
+    "filter_dashboard": "Dashboard Filter",
+    "showing_data_for": "Showing data for"
 }

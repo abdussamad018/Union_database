@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
 use App\Models\Donation;
+use App\Models\House;
 use App\Models\Resident;
+use App\Models\Village;
 use App\Services\StatsService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,10 +16,16 @@ class DashboardController extends Controller
 {
     public function __construct(protected StatsService $stats) {}
 
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Dashboard/Admin', [
-            'stats' => $this->stats->adminDashboard(),
+            'stats' => $this->stats->adminDashboard([
+                'village_id' => $request->village_id,
+                'house_id' => $request->house_id,
+            ]),
+            'villages' => Village::orderBy('ward_number')->get(['id', 'ward_number', 'name_bn', 'name_en']),
+            'houses' => House::orderBy('house_name')->get(['id', 'village_id', 'house_name']),
+            'filters' => $request->only(['village_id', 'house_id']),
         ]);
     }
 

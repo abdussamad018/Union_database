@@ -4,8 +4,9 @@ import { useI18n } from 'vue-i18n';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import StatCard from '@/Components/StatCard.vue';
 import ComparisonCharts from '@/Components/ComparisonCharts.vue';
+import DashboardFilters from '@/Components/DashboardFilters.vue';
 
-defineProps({ stats: Object });
+defineProps({ stats: Object, villages: Array, houses: Array, filters: Object });
 const { t } = useI18n();
 </script>
 
@@ -13,7 +14,7 @@ const { t } = useI18n();
     <Head :title="t('dashboard')" />
     <AppLayout>
         <h1 class="text-2xl font-bold text-slate-900 mb-6">{{ t('dashboard') }}</h1>
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <StatCard :label="t('total_population')" :value="stats.total_residents" />
             <StatCard :label="t('total_houses')" :value="stats.total_houses" />
             <StatCard :label="t('donation_givers')" :value="stats.donation_givers" />
@@ -24,10 +25,18 @@ const { t } = useI18n();
             <StatCard label="Private (Running)" :value="stats.private_running" />
         </div>
 
+        <DashboardFilters
+            :villages="villages"
+            :houses="houses"
+            :filters="filters"
+            :stats="stats"
+            route-name="admin.dashboard"
+        />
+
         <h2 class="text-lg font-semibold text-slate-800 mb-4">{{ t('population_comparisons') }}</h2>
         <ComparisonCharts :charts="stats.charts" class="mb-8" />
 
-        <div class="grid lg:grid-cols-2 gap-6">
+        <div v-if="!stats.is_filtered" class="grid lg:grid-cols-2 gap-6">
             <div class="bg-white rounded-xl border p-6">
                 <h3 class="font-semibold text-slate-800 mb-4">{{ t('donation_summary') }}</h3>
                 <div class="flex gap-8">
