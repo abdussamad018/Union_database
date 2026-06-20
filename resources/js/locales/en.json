@@ -66,5 +66,22 @@
     "orphan": "Orphan",
     "disability": "Disability",
     "father_name": "Father's Name",
-    "no_results": "No results found"
+    "no_results": "No results found",
+    "advanced_search": "Advanced Search",
+    "search_placeholder": "Name, father, phone, NID",
+    "all_genders": "All Genders",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "profile_status": "Profile Status",
+    "all_profile_status": "All Profiles",
+    "draft": "Draft",
+    "pending": "Pending",
+    "complete": "Complete",
+    "all_resident_status": "All Status",
+    "active": "Active",
+    "migrated": "Migrated",
+    "deceased": "Deceased",
+    "gender": "Gender",
+    "priority": "Priority"
 }

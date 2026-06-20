@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\House;
 use App\Models\ProfessionCategory;
 use App\Models\Resident;
 use App\Models\Village;
@@ -21,16 +22,15 @@ class ResidentController extends Controller
 
     public function index(Request $request)
     {
-        $query = Resident::with(['house.village', 'professionCategories'])
-            ->when($request->search, fn ($q, $s) => $q->where('name_bn', 'like', "%{$s}%")->orWhere('name_en', 'like', "%{$s}%"))
-            ->when($request->village_id, fn ($q, $v) => $q->whereHas('house', fn ($h) => $h->where('village_id', $v)))
-            ->when($request->needs_urgent_aid, fn ($q) => $q->where('needs_urgent_aid', true))
-            ->when($request->is_donation_receiver_eligible, fn ($q) => $q->where('is_donation_receiver_eligible', true));
+        $query = $this->residentService->buildFilteredQuery($request);
 
         return Inertia::render('Admin/Residents/Index', [
-            'residents' => $query->latest()->paginate(20)->withQueryString(),
-            'villages' => Village::orderBy('ward_number')->get(),
-            'filters' => $request->only(['search', 'village_id', 'needs_urgent_aid', 'is_donation_receiver_eligible']),
+            'residents' => $query->paginate(20)->withQueryString(),
+            'villages' => Village::orderBy('ward_number')->get(['id', 'ward_number', 'name_bn', 'name_en']),
+            'houses' => House::orderBy('house_name')->get(['id', 'village_id', 'house_name', 'address']),
+            'professionCategories' => ProfessionCategory::orderBy('name_bn')->get(),
+            'filters' => $request->only($this->residentService->filterParams()),
+            'presets' => $this->residentService->presets(),
         ]);
     }
 

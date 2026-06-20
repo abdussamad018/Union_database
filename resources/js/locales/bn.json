@@ -66,5 +66,22 @@
     "orphan": "এতিম",
     "disability": "প্রতিবন্ধী",
     "father_name": "পিতার নাম",
-    "no_results": "কোনো ফলাফল পাওয়া যায়নি"
+    "no_results": "কোনো ফলাফল পাওয়া যায়নি",
+    "advanced_search": "উন্নত অনুসন্ধান",
+    "search_placeholder": "নাম, পিতা, ফোন, NID",
+    "all_genders": "সব লিঙ্গ",
+    "male": "পুরুষ",
+    "female": "মহিলা",
+    "other": "অন্যান্য",
+    "profile_status": "প্রোফাইল অবস্থা",
+    "all_profile_status": "সব প্রোফাইল",
+    "draft": "খসড়া",
+    "pending": "অপেক্ষমাণ",
+    "complete": "সম্পূর্ণ",
+    "all_resident_status": "সব অবস্থা",
+    "active": "সক্রিয়",
+    "migrated": "অনাবাসী",
+    "deceased": "মৃত",
+    "gender": "লিঙ্গ",
+    "priority": "অগ্রাধিকার"
 }
