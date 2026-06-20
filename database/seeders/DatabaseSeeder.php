@@ -141,6 +141,7 @@ class DatabaseSeeder extends Seeder
                         'name' => "Bari Rep W{$village->ward_number}",
                         'name_bn' => "প্রতিনিধি W{$village->ward_number}",
                         'email' => "bari{$village->ward_number}@union.test",
+                        'phone' => '0170000000' . $village->ward_number,
                         'password' => Hash::make('password'),
                         'role' => UserRole::BariRepresentative,
                         'house_id' => $house->id,

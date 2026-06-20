@@ -49,6 +49,16 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        if (! Auth::user()->is_active) {
+            Auth::logout();
+
+            throw ValidationException::withMessages([
+                'email' => app()->getLocale() === 'bn'
+                    ? 'আপনার অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে।'
+                    : 'Your account has been deactivated.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 

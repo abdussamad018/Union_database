@@ -83,5 +83,18 @@
     "migrated": "অনাবাসী",
     "deceased": "মৃত",
     "gender": "লিঙ্গ",
-    "priority": "অগ্রাধিকার"
+    "priority": "অগ্রাধিকার",
+    "add_user": "নতুন ব্যবহারকারী",
+    "edit_user": "ব্যবহারকারী সম্পাদনা",
+    "phone": "ফোন",
+    "password": "পাসওয়ার্ড",
+    "new_password_optional": "নতুন পাসওয়ার্ড (ঐচ্ছিক)",
+    "role": "ভূমিকা",
+    "house": "বাড়ি",
+    "select_house": "বাড়ি নির্বাচন করুন",
+    "status": "অবস্থা",
+    "inactive": "নিষ্ক্রিয়",
+    "actions": "কার্যক্রম",
+    "activate": "সক্রিয় করুন",
+    "deactivate": "নিষ্ক্রিয় করুন"
 }

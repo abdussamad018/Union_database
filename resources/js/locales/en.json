@@ -83,5 +83,18 @@
     "migrated": "Migrated",
     "deceased": "Deceased",
     "gender": "Gender",
-    "priority": "Priority"
+    "priority": "Priority",
+    "add_user": "Add User",
+    "edit_user": "Edit User",
+    "phone": "Phone",
+    "password": "Password",
+    "new_password_optional": "New password (optional)",
+    "role": "Role",
+    "house": "House",
+    "select_house": "Select house",
+    "status": "Status",
+    "inactive": "Inactive",
+    "actions": "Actions",
+    "activate": "Activate",
+    "deactivate": "Deactivate"
 }
