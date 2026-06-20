@@ -20,6 +20,12 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        if (User::where('email', 'admin@union.test')->exists()) {
+            $this->command?->info('Database already seeded. Skipping.');
+
+            return;
+        }
+
         $union = UnionProfile::create([
             'name_bn' => 'ডেমো ইউনিয়ন',
             'name_en' => 'Demo Union',

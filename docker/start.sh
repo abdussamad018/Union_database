@@ -60,6 +60,8 @@ if [ "$ready" = "1" ]; then
   php artisan view:cache
   php artisan migrate --force
   echo "Migrations complete."
+  php artisan db:seed --force
+  echo "Seeding complete."
 else
   echo "WARNING: MySQL not reachable. Server will start anyway."
   echo "Fix Union_database Variables, then Redeploy:"
