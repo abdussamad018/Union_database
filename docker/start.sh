@@ -3,6 +3,12 @@
 php artisan package:discover --ansi 2>/dev/null || true
 php artisan config:clear
 
+if [ -n "$RAILWAY_PUBLIC_DOMAIN" ]; then
+  export APP_URL="https://${RAILWAY_PUBLIC_DOMAIN}"
+  export SESSION_SECURE_COOKIE="true"
+  echo "APP_URL set to $APP_URL"
+fi
+
 echo "=== Database config check ==="
 echo "DATABASE_URL set: $([ -n "$DATABASE_URL" ] && echo YES || echo NO)"
 echo "MYSQL_URL set:    $([ -n "$MYSQL_URL" ] && echo YES || echo NO)"

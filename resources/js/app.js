@@ -16,7 +16,7 @@ createInertiaApp({
         const i18n = setupI18n(props.initialPage.props.locale || 'bn');
         return createApp({ render: () => h(App, props) })
             .use(plugin)
-            .use(ZiggyVue)
+            .use(ZiggyVue, props.initialPage.props.ziggy)
             .use(i18n)
             .mount(el);
     },
