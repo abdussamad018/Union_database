@@ -55,6 +55,8 @@
     "view": "View",
     "clear_filters": "Clear Filters",
     "all_villages": "All Wards",
+    "all_houses": "All Houses",
+    "select_ward_first": "Select ward first",
     "all_zakat": "All Zakat",
     "all_income": "All Income",
     "all_employment": "All Employment",

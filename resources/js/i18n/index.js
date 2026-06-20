@@ -6,7 +6,7 @@ export function setupI18n(locale = 'bn') {
     return createI18n({
         legacy: false,
         locale,
-        fallbackLocale: 'en',
+        fallbackLocale: 'bn',
         messages: { bn, en },
     });
 }

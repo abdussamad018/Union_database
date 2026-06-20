@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\House;
 use App\Models\ProfessionCategory;
 use App\Models\Resident;
 use App\Models\Village;
@@ -22,9 +23,10 @@ class ResidentViewerController extends Controller
         return Inertia::render('Residents/Viewer/Index', [
             'residents' => $residents,
             'villages' => Village::orderBy('ward_number')->get(['id', 'ward_number', 'name_bn', 'name_en']),
+            'houses' => House::orderBy('house_name')->get(['id', 'village_id', 'house_name', 'address']),
             'professionCategories' => ProfessionCategory::orderBy('name_bn')->get(),
             'filters' => $request->only([
-                'search', 'village_id', 'zakat_status', 'is_donation_giver_eligible',
+                'search', 'village_id', 'house_id', 'zakat_status', 'is_donation_giver_eligible',
                 'is_donation_receiver_eligible', 'needs_urgent_aid', 'aid_priority',
                 'employment_sector', 'income_level', 'is_widow', 'is_orphan',
                 'has_disability', 'profession_category_id', 'preset',
@@ -65,6 +67,7 @@ class ResidentViewerController extends Controller
                     ->orWhere('father_name', 'like', "%{$s}%");
             }))
             ->when($request->village_id, fn ($q, $v) => $q->whereHas('house', fn ($h) => $h->where('village_id', $v)))
+            ->when($request->house_id, fn ($q, $h) => $q->where('house_id', $h))
             ->when($request->filled('zakat_status'), fn ($q) => $q->where('zakat_status', $request->zakat_status))
             ->when($request->boolean('is_donation_giver_eligible'), fn ($q) => $q->where('is_donation_giver_eligible', true))
             ->when($request->boolean('is_donation_receiver_eligible'), fn ($q) => $q->where('is_donation_receiver_eligible', true))

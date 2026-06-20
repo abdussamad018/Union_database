@@ -1,6 +1,6 @@
 <script setup>
 import { Head, Link, router } from '@inertiajs/vue3';
-import { reactive, watch } from 'vue';
+import { reactive, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import StatCard from '@/Components/StatCard.vue';
@@ -8,6 +8,7 @@ import StatCard from '@/Components/StatCard.vue';
 const props = defineProps({
     residents: Object,
     villages: Array,
+    houses: Array,
     professionCategories: Array,
     filters: Object,
     summary: Object,
@@ -19,6 +20,7 @@ const { t, locale } = useI18n();
 const form = reactive({
     search: props.filters.search || '',
     village_id: props.filters.village_id || '',
+    house_id: props.filters.house_id || '',
     zakat_status: props.filters.zakat_status || '',
     is_donation_giver_eligible: props.filters.is_donation_giver_eligible || '',
     is_donation_receiver_eligible: props.filters.is_donation_receiver_eligible || '',
@@ -37,6 +39,20 @@ const applyFilters = () => {
     const params = {};
     Object.entries(form).forEach(([k, v]) => { if (v) params[k] = v; });
     router.get(route('residents.viewer.index'), params, { preserveState: true, replace: true });
+};
+
+const filteredHouses = computed(() => {
+    if (!form.village_id) return [];
+    return props.houses.filter((h) => String(h.village_id) === String(form.village_id));
+});
+
+const onVillageChange = () => {
+    form.house_id = '';
+    applyFilters();
+};
+
+const onHouseChange = () => {
+    applyFilters();
 };
 
 const applyPreset = (key) => {
@@ -78,9 +94,13 @@ const zakatLabel = (s) => ({ pays: locale.value === 'bn' ? 'দেন' : 'Pays',
         <div class="bg-white rounded-xl border p-4 mb-6">
             <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
                 <input v-model="form.search" @keyup.enter="applyFilters" :placeholder="t('search')" class="rounded-lg border-slate-300 text-sm" />
-                <select v-model="form.village_id" class="rounded-lg border-slate-300 text-sm">
+                <select v-model="form.village_id" @change="onVillageChange" class="rounded-lg border-slate-300 text-sm">
                     <option value="">{{ t('all_villages') }}</option>
                     <option v-for="v in villages" :key="v.id" :value="v.id">Ward {{ v.ward_number }} — {{ v.name_bn }}</option>
+                </select>
+                <select v-model="form.house_id" @change="onHouseChange" :disabled="!form.village_id" class="rounded-lg border-slate-300 text-sm disabled:bg-slate-100 disabled:text-slate-400">
+                    <option value="">{{ form.village_id ? t('all_houses') : t('select_ward_first') }}</option>
+                    <option v-for="h in filteredHouses" :key="h.id" :value="h.id">{{ h.house_name }}</option>
                 </select>
                 <select v-model="form.zakat_status" class="rounded-lg border-slate-300 text-sm">
                     <option value="">{{ t('all_zakat') }}</option>
