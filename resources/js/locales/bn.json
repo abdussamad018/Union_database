@@ -116,5 +116,10 @@
     "house_name": "বাড়ির নাম",
     "address": "ঠিকানা",
     "representative": "প্রতিনিধি",
-    "no_representative": "প্রতিনিধি নেই"
+    "no_representative": "প্রতিনিধি নেই",
+    "filter_houses": "বাড়ি ফিল্টার",
+    "search_house_placeholder": "বাড়ির নাম বা ঠিকানা",
+    "all_representatives": "সব প্রতিনিধি",
+    "has_representative": "প্রতিনিধি আছে",
+    "no_representative_assigned": "প্রতিনিধি নেই"
 }

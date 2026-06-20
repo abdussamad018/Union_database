@@ -13,14 +13,28 @@ use Inertia\Inertia;
 
 class HouseController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $houses = House::with(['village', 'representative'])
+            ->withCount('residents')
+            ->when($request->search, fn ($q, $s) => $q->where(function ($q) use ($s) {
+                $q->where('house_name', 'like', "%{$s}%")
+                    ->orWhere('address', 'like', "%{$s}%");
+            }))
+            ->when($request->village_id, fn ($q, $v) => $q->where('village_id', $v))
+            ->when($request->has_representative === 'yes', fn ($q) => $q->whereNotNull('representative_user_id'))
+            ->when($request->has_representative === 'no', fn ($q) => $q->whereNull('representative_user_id'))
+            ->orderBy('house_name')
+            ->paginate(20)
+            ->withQueryString();
+
         return Inertia::render('Admin/Houses/Index', [
-            'houses' => House::with(['village', 'representative'])->withCount('residents')->orderBy('house_name')->paginate(20),
+            'houses' => $houses,
             'villages' => Village::orderBy('ward_number')->get(['id', 'ward_number', 'name_bn', 'name_en']),
             'bariRepresentatives' => User::where('role', UserRole::BariRepresentative)
                 ->orderBy('name')
                 ->get(['id', 'name', 'name_bn', 'house_id']),
+            'filters' => $request->only(['search', 'village_id', 'has_representative']),
         ]);
     }
 

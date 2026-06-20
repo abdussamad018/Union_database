@@ -116,5 +116,10 @@
     "house_name": "House Name",
     "address": "Address",
     "representative": "Representative",
-    "no_representative": "No representative"
+    "no_representative": "No representative",
+    "filter_houses": "Filter Houses",
+    "search_house_placeholder": "House name or address",
+    "all_representatives": "All representatives",
+    "has_representative": "Has representative",
+    "no_representative_assigned": "No representative"
 }
