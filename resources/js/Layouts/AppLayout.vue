@@ -15,6 +15,7 @@ const adminLinks = [
     { name: 'dashboard', route: 'admin.dashboard', label: 'dashboard' },
     { name: 'quick', route: 'admin.quick-decision', label: 'quick_decision' },
     { name: 'residents', route: 'admin.residents.index', label: 'residents' },
+    { name: 'villages', route: 'admin.villages.index', label: 'villages' },
     { name: 'houses', route: 'admin.houses.index', label: 'houses' },
     { name: 'facilities', route: 'admin.facilities.index', label: 'facilities' },
     { name: 'donations', route: 'admin.donations.index', label: 'donations' },

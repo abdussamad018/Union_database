@@ -106,5 +106,15 @@
     "complete_profiles": "Complete Profiles",
     "incomplete_profiles": "Incomplete Profiles",
     "filter_dashboard": "Dashboard Filter",
-    "showing_data_for": "Showing data for"
+    "showing_data_for": "Showing data for",
+    "villages": "Wards/Villages",
+    "add_village": "Add Ward/Village",
+    "edit_village": "Edit Ward/Village",
+    "ward_number": "Ward No.",
+    "add_house": "Add House",
+    "edit_house": "Edit House",
+    "house_name": "House Name",
+    "address": "Address",
+    "representative": "Representative",
+    "no_representative": "No representative"
 }

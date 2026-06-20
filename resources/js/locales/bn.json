@@ -106,5 +106,15 @@
     "complete_profiles": "সম্পূর্ণ প্রোফাইল",
     "incomplete_profiles": "অসম্পূর্ণ প্রোফাইল",
     "filter_dashboard": "ড্যাশবোর্ড ফিল্টার",
-    "showing_data_for": "দেখানো হচ্ছে"
+    "showing_data_for": "দেখানো হচ্ছে",
+    "villages": "ওয়ার্ড/গ্রাম",
+    "add_village": "নতুন ওয়ার্ড যোগ করুন",
+    "edit_village": "ওয়ার্ড সম্পাদনা",
+    "ward_number": "ওয়ার্ড নং",
+    "add_house": "নতুন বাড়ি যোগ করুন",
+    "edit_house": "বাড়ি সম্পাদনা",
+    "house_name": "বাড়ির নাম",
+    "address": "ঠিকানা",
+    "representative": "প্রতিনিধি",
+    "no_representative": "প্রতিনিধি নেই"
 }

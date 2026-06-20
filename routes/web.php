@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\FacilityController;
 use App\Http\Controllers\Admin\HouseController;
 use App\Http\Controllers\Admin\ResidentController as AdminResidentController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\VillageController;
 use App\Http\Controllers\BariRep\DashboardController as BariDashboardController;
 use App\Http\Controllers\BariRep\ResidentController as BariResidentController;
 use App\Http\Controllers\DonationViewerController;
@@ -60,6 +61,10 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/residents/{resident}', [AdminResidentController::class, 'update'])->name('residents.update');
         Route::delete('/residents/{resident}', [AdminResidentController::class, 'destroy'])->name('residents.destroy');
         Route::get('/residents-export', [AdminResidentController::class, 'export'])->name('residents.export');
+
+        Route::get('/villages', [VillageController::class, 'index'])->name('villages.index');
+        Route::post('/villages', [VillageController::class, 'store'])->name('villages.store');
+        Route::put('/villages/{village}', [VillageController::class, 'update'])->name('villages.update');
 
         Route::get('/houses', [HouseController::class, 'index'])->name('houses.index');
         Route::post('/houses', [HouseController::class, 'store'])->name('houses.store');
