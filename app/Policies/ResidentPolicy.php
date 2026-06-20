@@ -10,13 +10,31 @@ class ResidentPolicy
 {
     public function viewAny(User $user): bool
     {
-        return true;
+        return in_array($user->role, [
+            UserRole::SuperAdmin,
+            UserRole::BariRepresentative,
+            UserRole::SocialOrganization,
+            UserRole::Elite,
+        ]);
     }
 
     public function view(User $user, Resident $resident): bool
     {
-        return $user->role === UserRole::SuperAdmin
-            || ($user->role === UserRole::BariRepresentative && $user->house_id === $resident->house_id);
+        if ($user->role === UserRole::SuperAdmin) {
+            return true;
+        }
+
+        if ($user->role === UserRole::BariRepresentative) {
+            return $user->house_id === $resident->house_id;
+        }
+
+        if (in_array($user->role, [UserRole::SocialOrganization, UserRole::Elite])) {
+            return $resident->resident_status === 'active'
+                && $resident->profile_status === 'complete'
+                && $resident->consent_for_charity_contact;
+        }
+
+        return false;
     }
 
     public function create(User $user): bool

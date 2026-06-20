@@ -30,6 +30,7 @@ const bariLinks = [
 
 const viewerLinks = [
     { name: 'donations', route: 'donations.index', label: 'donations' },
+    { name: 'residents', route: 'residents.viewer.index', label: 'residents' },
 ];
 
 const links = computed(() => {

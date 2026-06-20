@@ -13,6 +13,7 @@ use App\Http\Controllers\DonationViewerController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResidentViewerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing');
@@ -28,6 +29,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:social_organization,elite,super_admin'])->group(function () {
         Route::get('/donations', [DonationViewerController::class, 'index'])->name('donations.index');
         Route::get('/donations/{donation}', [DonationViewerController::class, 'show'])->name('donations.show');
+
+        Route::get('/residents', [ResidentViewerController::class, 'index'])->name('residents.viewer.index');
+        Route::get('/residents/{resident}', [ResidentViewerController::class, 'show'])->name('residents.viewer.show');
     });
 
     Route::prefix('bari')->middleware(['role:bari_representative'])->name('bari.')->group(function () {
